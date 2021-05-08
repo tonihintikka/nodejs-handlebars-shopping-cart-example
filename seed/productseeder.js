@@ -1,30 +1,26 @@
 const Product = require('../models/Product');
 const mongoose = require('mongoose');
 const { exists } = require('../models/Product');
-mongoose.connect('mongodb://localhost:27017/shopping', {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-    useFindAndModify: false,
-    });
+mongoose.connect('mongodb://localhost:27017/shopping');
 const products =[ new Product({
  imagePath:'https://upload.wikimedia.org/wikipedia/commons/7/7b/Sibelius_with_notes.jpg',
  title: 'Sibelius book',
  description:'Mahtava sibelius kirja, jossa on kaikkea kiinnostavaa sisältöä',
  price: 17}),
  new Product({
- imagePath:'https://fi.wikipedia.org/wiki/Fredrik_Pacius#/media/Tiedosto:Fredrik_Pacius.jpg',
+ imagePath:'https://upload.wikimedia.org/wikipedia/commons/8/8c/Fredrik_Pacius.jpg',
  title: 'Fredrik Pacius kirja',
  description:'Mahtava Fredrik Pacius kirja, jossa on kaikkea kiinnostavaa sisältöä',
  price: 19}),
 new Product({
- imagePath:'https://fi.wikipedia.org/wiki/Fredrik_Pacius#/media/Tiedosto:Fredrik_Pacius.jpg',
- title: 'Fredrik Pacius kirja',
- description:'Mahtava Fredrik Pacius kirja, jossa on kaikkea kiinnostavaa sisältöä',
+ imagePath:'https://upload.wikimedia.org/wikipedia/commons/0/09/OlaviPesonen.jpg',
+ title: 'Olavi Pesonen kirja',
+ description:'Pesosen ensimmäiset teokset edustivat kansallisromantiikkaa, mutta myöhemmin hänen sävelkielensä kehittyi kromaattisemmaksi ja etääntyi paikoitellen tonaalisuudesta.',
  price: 19}),
  new Product({
- imagePath:'https://fi.wikipedia.org/wiki/Fredrik_Pacius#/media/Tiedosto:Fredrik_Pacius.jpg',
- title: 'Fredrik Pacius kirja',
- description:'Mahtava Fredrik Pacius kirja, jossa on kaikkea kiinnostavaa sisältöä',
+ imagePath:'https://upload.wikimedia.org/wikipedia/commons/a/a4/JoonasKokkonen.jpg',
+ title: 'Joonas Kokkonen kirja',
+ description:'Mahtava Joonas Kokkonen kirja, jossa on kaikkea kiinnostavaa sisältöä',
  price: 19}),
  new Product({
  imagePath:'https://energiakoura.fi/wp-content/uploads/2019/06/200-nettisivuille-600x472.png',

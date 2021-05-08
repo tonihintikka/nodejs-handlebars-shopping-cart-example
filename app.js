@@ -10,7 +10,11 @@ const mongoose = require('mongoose')
 
 
 const app = express();
-mongoose.connect('localhost:27017/shopping');
+mongoose.connect('mongodb://localhost:27017/shopping', {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+    useFindAndModify: false,
+    });
 
 // view engine setup
 app.engine('.hbs', expressHbs({defaultLayout:'layout', extname:'.hbs'}));
