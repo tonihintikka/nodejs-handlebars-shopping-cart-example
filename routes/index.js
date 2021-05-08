@@ -1,6 +1,9 @@
 const express = require('express');
 const router = express.Router();
 const Product = require('../models/Product');
+const csrf = require('csurf');
+const csrfProtection = csrf();
+router.use(csrfProtection);
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
@@ -11,19 +14,7 @@ Product.find().lean().exec(function(err,docs){
     productChunks.push(docs.slice(i, i + chunkSize));
   }
   console.log(productChunks);
-const secureProducsChuncks={
-  products: productChunks.map(data => {
-    return{
-      imagePath: data.imagePath, 
-      title: data.title,
-      description: data.description,
-      price: data.price
-    }
-  })
-}
 
-
-console.log(secureProducsChuncks)
 
 
 res.render('shop/index', { title: 'Shopping cart', products: productChunks });
@@ -32,5 +23,13 @@ res.render('shop/index', { title: 'Shopping cart', products: productChunks });
 
   
 });
+
+router.get('/user/signup', function(req, res, next){
+  res.render('user/signup', {csrfToken:req.csrfToken()});
+})
+
+router.post('/user/signup' ,function(req,res, next) {
+  res.redirect('/');
+})
 
 module.exports = router;
