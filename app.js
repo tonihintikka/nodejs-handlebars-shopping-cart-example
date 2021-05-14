@@ -9,6 +9,10 @@ const indexRouter = require('./routes/index');
 const expressHbs = require('express-handlebars');
 const mongoose = require('mongoose');
 const session = require('express-session');
+const passport  = require('passport');
+const flash = require('connect-flash');
+///const validator = require('express-validator');
+
 
 
 const app = express();
@@ -18,15 +22,23 @@ mongoose.connect('mongodb://localhost:27017/shopping', {
     useFindAndModify: false,
     });
 
+  require('./config/passport');
+
 // view engine setup
 app.engine('.hbs', expressHbs({defaultLayout:'layout', extname:'.hbs'}));
 app.set('view engine', '.hbs');
 app.use(session({secret: 'mysupersecret', resave:false, saveUninitialized:false}));
+app.use(flash());
+app.use(passport.initialize());
+app.use(passport.session());
 app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
+
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+//app.use(validator());
+//const {body, req, validationResult} = require('express-validator');
 
 app.use('/', indexRouter);
 

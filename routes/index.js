@@ -1,8 +1,10 @@
 const express = require('express');
 const router = express.Router();
-const Product = require('../models/Product');
+
 const csrf = require('csurf');
+const passport = require('passport');
 const csrfProtection = csrf();
+const Product = require('../models/Product');
 router.use(csrfProtection);
 
 /* GET home page. */
@@ -25,11 +27,21 @@ res.render('shop/index', { title: 'Shopping cart', products: productChunks });
 });
 
 router.get('/user/signup', function(req, res, next){
-  res.render('user/signup', {csrfToken:req.csrfToken()});
+  var messages = req.flash('error');
+  res.render('user/signup', {csrfToken:req.csrfToken(), messages:messages, hasErrors: messages.length > 0});
 })
 
-router.post('/user/signup' ,function(req,res, next) {
-  res.redirect('/');
+router.post('/user/signup' , passport.authenticate('local.signup',
+{
+  successRedirect: '/user/profile',
+  failureRedirect: '/user/signup',
+  failureFlash: true
+
+}))
+router.get('/user/profile', function(req, res, next){
+  res.render('user/profile');
 })
+
+
 
 module.exports = router;
